@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#090014"
+>
+
+<title>TAMA — PURPLE DEPLOYER</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --purple:#a855f7;
+  --purple2:#7c3aed;
+  --purple3:#c084fc;
+  --pink:#ec4899;
+  --bg:#07000f;
+  --panel:rgba(18,5,32,.72);
+  --text:#faf5ff;
+  --muted:#a78bbd;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(168,85,247,.20),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(236,72,153,.12),
+      transparent 30%
+    ),
+    var(--bg);
+}
+
+/* VIDEO */
+
+#bgVideo{
+  position:fixed;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:.25;
+
+  z-index:-5;
+
+  filter:
+    saturate(1.35)
+    contrast(1.05);
+}
+
+.videoOverlay{
+  position:fixed;
+  inset:0;
+
+  z-index:-4;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(10,0,20,.94),
+      rgba(43,0,78,.78),
+      rgba(10,0,20,.95)
+    );
+}
+
+/* GRID */
+
+.grid{
+  position:fixed;
+  inset:0;
+
+  z-index:-3;
+
+  pointer-events:none;
+
+  opacity:.18;
+
+  background-image:
+    linear-gradient(
+      rgba(168,85,247,.25) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(168,85,247,.25) 1px,
+      transparent 1px
+    );
+
+  background-size:45px 45px;
+
+  animation:
+    gridMove 18s linear infinite;
+}
+
+@keyframes gridMove{
+
+  from{
+    transform:translateY(0);
+  }
+
+  to{
+    transform:translateY(45px);
+  }
+}
+
+/* PARTICLES */
+
+#particles{
+  position:fixed;
+  inset:0;
+
+  z-index:-2;
+
+  pointer-events:none;
+}
+
+/* LIGHT */
+
+.light{
+  position:fixed;
+
+  width:280px;
+  height:280px;
+
+  border-radius:50%;
+
+  pointer-events:none;
+
+  z-index:-1;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.18),
+      transparent 70%
+    );
+
+  transform:
+    translate(-50%,-50%);
+}
+
+/* CONTAINER */
+
+.container{
+  width:
+    min(
+      1050px,
+      calc(100% - 24px)
+    );
+
+  margin:auto;
+
+  padding:
+    25px
+    0
+    55px;
+}
+
+/* HEADER */
+
+header{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin-bottom:35px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+
+  gap:13px;
+}
+
+.logo{
+  width:50px;
+  height:50px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:16px;
+
+  font-weight:1000;
+  font-size:20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c084fc,
+      #7c3aed,
+      #ec4899
+    );
+
+  box-shadow:
+    0 0 20px
+      rgba(168,85,247,.55),
+    0 0 60px
+      rgba(168,85,247,.20);
+
+  animation:
+    logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse{
+
+  50%{
+    box-shadow:
+      0 0 35px
+        rgba(168,85,247,.8),
+      0 0 80px
+        rgba(168,85,247,.25);
+  }
+}
+
+.brand h1{
+  font-size:18px;
+}
+
+.brand p{
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+.status{
+  padding:
+    9px
+    13px;
+
+  display:flex;
+  align-items:center;
+
+  gap:8px;
+
+  border:
+    1px solid
+    rgba(168,85,247,.25);
+
+  border-radius:999px;
+
+  background:
+    rgba(168,85,247,.08);
+
+  color:#d8b4fe;
+
+  font-size:10px;
+  font-weight:800;
+}
+
+.statusDot{
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#c084fc;
+
+  box-shadow:
+    0 0 14px #c084fc;
+
+  animation:
+    blink 1.3s infinite;
+}
+
+@keyframes blink{
+
+  50%{
+    opacity:.35;
+  }
+}
+
+/* HERO */
+
+.hero{
+  text-align:center;
+
+  padding:
+    35px
+    5px
+    30px;
+}
+
+.badge{
+  display:inline-flex;
+
+  padding:
+    7px
+    12px;
+
+  border:
+    1px solid
+    rgba(192,132,252,.2);
+
+  border-radius:999px;
+
+  color:#d8b4fe;
+
+  background:
+    rgba(168,85,247,.08);
+
+  font-size:10px;
+  font-weight:800;
+
+  letter-spacing:1px;
+
+  animation:
+    float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+
+  50%{
+    transform:
+      translateY(-5px);
+  }
+}
+
+.hero h2{
+  margin-top:18px;
+
+  font-size:
+    clamp(
+      37px,
+      8vw,
+      70px
+    );
+
+  line-height:.95;
+
+  letter-spacing:-3px;
+
+  background:
+    linear-gradient(
+      100deg,
+      #fff,
+      #d8b4fe,
+      #a855f7,
+      #ec4899
+    );
+
+  -webkit-background-clip:text;
+
+  color:transparent;
+
+  animation:
+    titleGlow 4s ease-in-out infinite;
+}
+
+@keyframes titleGlow{
+
+  50%{
+    filter:
+      drop-shadow(
+        0 0 25px
+        rgba(168,85,247,.35)
+      );
+  }
+}
+
+.hero p{
+  max-width:620px;
+
+  margin:
+    18px
+    auto
+    0;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.8;
+}
+
+/* PANEL */
+
+.panel{
+  position:relative;
+
+  overflow:hidden;
+
+  padding:20px;
+
+  border:
+    1px solid
+    rgba(168,85,247,.23);
+
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(35,10,55,.78),
+      rgba(12,3,22,.78)
+    );
+
+  backdrop-filter:
+    blur(22px);
+
+  box-shadow:
+    0 30px 100px
+      rgba(0,0,0,.45),
+    0 0 70px
+      rgba(124,58,237,.08);
+}
+
+.panel::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:-100%;
+
+  width:100%;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #c084fc,
+      transparent
+    );
+
+  animation:
+    scan 4s linear infinite;
+}
+
+@keyframes scan{
+
+  to{
+    left:100%;
+  }
+}
+
+/* TABS */
+
+.tabs{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:8px;
+
+  margin-bottom:18px;
+}
+
+.tab{
+  height:45px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.07);
+
+  border-radius:13px;
+
+  color:#987eaa;
+
+  background:
+    rgba(255,255,255,.025);
+
+  cursor:pointer;
+
+  font-weight:800;
+
+  transition:.25s;
+}
+
+.tab:hover{
+  color:#fff;
+
+  border-color:
+    rgba(168,85,247,.3);
+
+  transform:
+    translateY(-2px);
+}
+
+.tab.active{
+  color:white;
+
+  border-color:
+    rgba(168,85,247,.4);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.22),
+      rgba(236,72,153,.08)
+    );
+
+  box-shadow:
+    0 0 25px
+      rgba(168,85,247,.08);
+}
+
+/* SECTIONS */
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+
+  animation:
+    sectionIn .35s ease;
+}
+
+@keyframes sectionIn{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0);
+  }
+}
+
+/* FIELD */
+
+.field{
+  margin-bottom:15px;
+}
+
+label.title{
+  display:block;
+
+  margin-bottom:8px;
+
+  color:#c7afd4;
+
+  font-size:11px;
+  font-weight:800;
+
+  letter-spacing:.4px;
+}
+
+input,
+textarea{
+  width:100%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  border-radius:14px;
+
+  outline:none;
+
+  color:white;
+
+  background:
+    rgba(0,0,0,.28);
+
+  transition:.25s;
+}
+
+input{
+  height:48px;
+
+  padding:
+    0
+    15px;
+}
+
+textarea{
+  min-height:300px;
+
+  padding:15px;
+
+  resize:vertical;
+
+  font-family:
+    monospace;
+
+  font-size:12px;
+
+  line-height:1.6;
+}
+
+input:focus,
+textarea:focus{
+
+  border-color:
+    rgba(192,132,252,.65);
+
+  box-shadow:
+    0 0 0 3px
+      rgba(168,85,247,.07),
+    0 0 35px
+      rgba(168,85,247,.08);
+}
+
+/* DROP */
+
+.dropzone{
+
+  min-height:210px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+  align-items:center;
+
+  padding:25px;
+
+  text-align:center;
+
+  border:
+    1px dashed
+    rgba(168,85,247,.4);
+
+  border-radius:19px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.10),
+      transparent 65%
+    );
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.dropzone:hover,
+.dropzone.drag{
+
+  border-color:
+    #c084fc;
+
+  transform:
+    translateY(-3px)
+    scale(1.005);
+
+  box-shadow:
+    0 0 40px
+      rgba(168,85,247,.10);
+}
+
+.uploadIcon{
+
+  width:62px;
+  height:62px;
+
+  display:grid;
+  place-items:center;
+
+  margin-bottom:14px;
+
+  border-radius:19px;
+
+  color:#d8b4fe;
+
+  background:
+    rgba(168,85,247,.12);
+
+  font-size:27px;
+
+  box-shadow:
+    0 0 25px
+      rgba(168,85,247,.12);
+}
+
+.dropzone strong{
+  font-size:14px;
+}
+
+.dropzone span{
+  margin-top:7px;
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+#fileInput{
+  display:none;
+}
+
+.selected{
+
+  display:none;
+
+  margin-top:11px;
+
+  padding:12px;
+
+  border-radius:13px;
+
+  color:#d8b4fe;
+
+  background:
+    rgba(168,85,247,.07);
+
+  border:
+    1px solid
+    rgba(168,85,247,.15);
+
+  font-size:11px;
+}
+
+/* BUTTON */
+
+.deployBtn{
+
+  position:relative;
+
+  overflow:hidden;
+
+  width:100%;
+  height:54px;
+
+  margin-top:5px;
+
+  border:0;
+
+  border-radius:15px;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      110deg,
+      #7c3aed,
+      #a855f7,
+      #ec4899
+    );
+
+  cursor:pointer;
+
+  font-size:13px;
+  font-weight:1000;
+
+  box-shadow:
+    0 15px 45px
+      rgba(124,58,237,.27);
+
+  transition:.25s;
+}
+
+.deployBtn::after{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:-120%;
+
+  width:70%;
+  height:100%;
+
+  transform:
+    skewX(-20deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.25),
+      transparent
+    );
+
+  animation:
+    buttonShine 3s infinite;
+}
+
+@keyframes buttonShine{
+
+  55%,
+  100%{
+    left:140%;
+  }
+}
+
+.deployBtn:hover{
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 20px 60px
+      rgba(168,85,247,.35);
+}
+
+.deployBtn:active{
+
+  transform:
+    scale(.98);
+}
+
+.deployBtn:disabled{
+
+  opacity:.55;
+
+  cursor:not-allowed;
+
+  transform:none;
+}
+
+/* RESULT */
+
+.result{
+
+  display:none;
+
+  margin-top:17px;
+
+  padding:18px;
+
+  border:
+    1px solid
+    rgba(192,132,252,.2);
+
+  border-radius:17px;
+
+  background:
+    rgba(168,85,247,.055);
+
+  animation:
+    resultIn .4s ease;
+}
+
+@keyframes resultIn{
+
+  from{
+    opacity:0;
+    transform:
+      scale(.97);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      scale(1);
+  }
+}
+
+.result.error{
+
+  border-color:
+    rgba(236,72,153,.3);
+
+  background:
+    rgba(236,72,153,.05);
+}
+
+.resultTitle{
+
+  font-size:14px;
+  font-weight:900;
+}
+
+.resultText{
+
+  margin-top:7px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.7;
+}
+
+.liveUrl{
+
+  display:block;
+
+  margin-top:12px;
+
+  padding:13px;
+
+  border-radius:12px;
+
+  color:#d8b4fe;
+
+  background:
+    rgba(0,0,0,.25);
+
+  border:
+    1px solid
+    rgba(168,85,247,.12);
+
+  text-decoration:none;
+
+  word-break:break-all;
+
+  font-size:11px;
+}
+
+.openBtn{
+
+  display:block;
+
+  margin-top:10px;
+
+  padding:13px;
+
+  border-radius:12px;
+
+  color:white;
+
+  background:
+    rgba(168,85,247,.15);
+
+  border:
+    1px solid
+    rgba(168,85,247,.2);
+
+  text-align:center;
+
+  text-decoration:none;
+
+  font-size:11px;
+  font-weight:900;
+
+  transition:.2s;
+}
+
+.openBtn:hover{
+
+  background:
+    rgba(168,85,247,.25);
+
+  transform:
+    translateY(-2px);
+}
+
+/* FEATURES */
+
+.features{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:12px;
+
+  margin-top:16px;
+}
+
+.feature{
+
+  padding:17px;
+
+  border:
+    1px solid
+    rgba(168,85,247,.10);
+
+  border-radius:17px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  transition:.25s;
+}
+
+.feature:hover{
+
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(168,85,247,.3);
+
+  box-shadow:
+    0 15px 40px
+      rgba(168,85,247,.07);
+}
+
+.feature b{
+
+  display:block;
+
+  margin-bottom:7px;
+
+  color:#e9d5ff;
+
+  font-size:12px;
+}
+
+.feature span{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  line-height:1.6;
+}
+
+/* LOADING */
+
+.loading{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+}
+
+.spinner{
+
+  width:15px;
+  height:15px;
+
+  border:
+    2px solid
+    rgba(255,255,255,.25);
+
+  border-top-color:white;
+
+  border-radius:50%;
+
+  animation:
+    spin .7s linear infinite;
+}
+
+@keyframes spin{
+
+  to{
+    transform:
+      rotate(360deg);
+  }
+}
+
+/* TOAST */
+
+.toast{
+
+  position:fixed;
+
+  left:50%;
+  bottom:25px;
+
+  transform:
+    translate(-50%,30px);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  z-index:100;
+
+  padding:
+    12px
+    17px;
+
+  border:
+    1px solid
+    rgba(192,132,252,.25);
+
+  border-radius:999px;
+
+  color:white;
+
+  background:
+    rgba(20,5,30,.9);
+
+  box-shadow:
+    0 10px 40px
+      rgba(0,0,0,.4);
+
+  backdrop-filter:
+    blur(15px);
+
+  font-size:11px;
+
+  transition:.3s;
+}
+
+.toast.show{
+
+  opacity:1;
+
+  transform:
+    translate(-50%,0);
+}
+
+/* FOOTER */
+
+footer{
+
+  margin-top:30px;
+
+  text-align:center;
+
+  color:#664d78;
+
+  font-size:10px;
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+  .container{
+
+    width:
+      calc(100% - 16px);
+
+    padding-top:15px;
+  }
+
+  .status{
+    display:none;
+  }
+
+  .panel{
+    padding:14px;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    padding-top:25px;
+  }
+
+  .hero h2{
+    letter-spacing:-2px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<video
+  id="bgVideo"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+
+  <source
+    src="/video.mp4"
+    type="video/mp4"
+  >
+
+</video>
+
+<div class="videoOverlay"></div>
+
+<div class="grid"></div>
+
+<canvas id="particles"></canvas>
+
+<div
+  class="light"
+  id="mouseLight"
+></div>
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+<main class="container">
+
+<header>
+
+  <div class="brand">
+
+    <div class="logo">
+      T
+    </div>
+
+    <div>
+
+      <h1>
+        TAMA PURPLE DEPLOYER
+      </h1>
+
+      <p>
+        HTML TO REAL PUBLIC WEBSITE
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="status">
+
+    <i class="statusDot"></i>
+
+    DEPLOY ONLINE
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <div class="badge">
+    REAL DEPLOYMENT SYSTEM
+  </div>
+
+  <h2>
+    HTML → LIVE WEB
+  </h2>
+
+  <p>
+    Upload HTML atau paste kode langsung.
+    Website akan diproses oleh server dan
+    dideploy menjadi website publik.
+  </p>
+
+</section>
+
+<section class="panel">
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      data-tab="upload"
+    >
+      UPLOAD HTML
+    </button>
+
+    <button
+      class="tab"
+      data-tab="code"
+    >
+      PASTE CODE
+    </button>
+
+  </div>
+
+  <!-- UPLOAD -->
+
+  <div
+    class="section active"
+    id="upload"
+  >
+
+    <div class="field">
+
+      <label class="title">
+        NAMA WEBSITE
+      </label>
+
+      <input
+        id="uploadSiteName"
+        placeholder="contoh: toko-tama"
+        maxlength="35"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label class="title">
+        FILE HTML
+      </label>
+
+      <label
+        class="dropzone"
+        id="dropzone"
+        for="fileInput"
+      >
+
+        <div class="uploadIcon">
+          ↑
+        </div>
+
+        <strong>
+          PILIH FILE HTML
+        </strong>
+
+        <span>
+          Klik atau drag & drop file .html
+        </span>
+
+        <input
+          id="fileInput"
+          type="file"
+          accept=".html,.htm,text/html"
+        >
+
+      </label>
+
+      <div
+        class="selected"
+        id="selectedFile"
+      ></div>
+
+    </div>
+
+    <button
+      class="deployBtn"
+      id="uploadDeploy"
+    >
+      DEPLOY WEBSITE
+    </button>
+
+  </div>
+
+  <!-- CODE -->
+
+  <div
+    class="section"
+    id="code"
+  >
+
+    <div class="field">
+
+      <label class="title">
+        NAMA WEBSITE
+      </label>
+
+      <input
+        id="codeSiteName"
+        placeholder="contoh: portfolio-tama"
+        maxlength="35"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label class="title">
+        KODE HTML
+      </label>
+
+      <textarea
+        id="htmlCode"
+        spellcheck="false"
+        placeholder="<!DOCTYPE html>
+<html>
+<head>
+<title>Website Saya</title>
+</head>
+<body>
+<h1>Hello World</h1>
+</body>
+</html>"
+      ></textarea>
+
+    </div>
+
+    <button
+      class="deployBtn"
+      id="codeDeploy"
+    >
+      DEPLOY WEBSITE
+    </button>
+
+  </div>
+
+  <div
+    class="result"
+    id="result"
+  ></div>
+
+</section>
+
+<section class="features">
+
+  <div class="feature">
+
+    <b>
+      REAL DEPLOY
+    </b>
+
+    <span>
+      Bukan preview palsu.
+      HTML dikirim ke deployment
+      provider.
+    </span>
+
+  </div>
+
+  <div class="feature">
+
+    <b>
+      PUBLIC URL
+    </b>
+
+    <span>
+      Deployment menghasilkan URL
+      website yang bisa dibuka.
+    </span>
+
+  </div>
+
+  <div class="feature">
+
+    <b>
+      PHONE READY
+    </b>
+
+    <span>
+      Bisa digunakan langsung dari
+      browser HP tanpa Termux.
+    </span>
+
+  </div>
+
+</section>
+
+<footer>
+  TAMA PURPLE DEPLOYER · HTML TO WEB
+</footer>
+
+</main>
+
+<script>
+
+/* =========================
+   PARTICLES
+========================= */
+
+const canvas =
+  document.getElementById(
+    "particles"
+  );
+
+const ctx =
+  canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas(){
+
+  canvas.width =
+    window.innerWidth;
+
+  canvas.height =
+    window.innerHeight;
+}
+
+resizeCanvas();
+
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
+
+function createParticles(){
+
+  particles = [];
+
+  const amount =
+    Math.min(
+      90,
+      Math.floor(
+        window.innerWidth / 12
+      )
+    );
+
+  for(
+    let i = 0;
+    i < amount;
+    i++
+  ){
+
+    particles.push({
+
+      x:
+        Math.random() *
+        canvas.width,
+
+      y:
+        Math.random() *
+        canvas.height,
+
+      size:
+        Math.random() *
+        2 + .4,
+
+      speed:
+        Math.random() *
+        .35 + .08,
+
+      alpha:
+        Math.random() *
+        .7 + .1
+
+    });
+  }
+}
+
+createParticles();
+
+function animateParticles(){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  particles.forEach(p => {
+
+    p.y -= p.speed;
+
+    if(p.y < -10){
+
+      p.y =
+        canvas.height + 10;
+
+      p.x =
+        Math.random() *
+        canvas.width;
+    }
+
+    ctx.beginPath();
+
+    ctx.arc(
+      p.x,
+      p.y,
+      p.size,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fillStyle =
+      `rgba(192,132,252,${p.alpha})`;
+
+    ctx.shadowBlur = 10;
+
+    ctx.shadowColor =
+      "rgba(168,85,247,.8)";
+
+    ctx.fill();
+
+  });
+
+  requestAnimationFrame(
+    animateParticles
+  );
+}
+
+animateParticles();
+
+
+/* =========================
+   MOUSE LIGHT
+========================= */
+
+const light =
+  document.getElementById(
+    "mouseLight"
+  );
+
+document.addEventListener(
+  "mousemove",
+  e => {
+
+    light.style.left =
+      e.clientX + "px";
+
+    light.style.top =
+      e.clientY + "px";
+
+  }
+);
+
+
+/* =========================
+   TABS
+========================= */
+
+const tabs =
+  document.querySelectorAll(
+    ".tab"
+  );
+
+const sections =
+  document.querySelectorAll(
+    ".section"
+  );
+
+tabs.forEach(tab => {
+
+  tab.addEventListener(
+    "click",
+    () => {
+
+      tabs.forEach(t =>
+        t.classList.remove(
+          "active"
+        )
+      );
+
+      sections.forEach(s =>
+        s.classList.remove(
+          "active"
+        )
+      );
+
+      tab.classList.add(
+        "active"
+      );
+
+      document
+        .getElementById(
+          tab.dataset.tab
+        )
+        .classList.add(
+          "active"
+        );
+
+    }
+  );
+
+});
+
+
+/* =========================
+   FILE UPLOAD
+========================= */
+
+const fileInput =
+  document.getElementById(
+    "fileInput"
+  );
+
+const dropzone =
+  document.getElementById(
+    "dropzone"
+  );
+
+const selectedFile =
+  document.getElementById(
+    "selectedFile"
+  );
+
+fileInput.addEventListener(
+  "change",
+  () => {
+
+    showFile(
+      fileInput.files[0]
+    );
+
+  }
+);
+
+function showFile(file){
+
+  if(!file)
+    return;
+
+  const name =
+    file.name.toLowerCase();
+
+  if(
+    !name.endsWith(".html") &&
+    !name.endsWith(".htm")
+  ){
+
+    toast(
+      "File harus HTML."
+    );
+
+    fileInput.value = "";
+
+    return;
+  }
+
+  selectedFile.style.display =
+    "block";
+
+  selectedFile.textContent =
+    "✓ " +
+    file.name +
+    " · " +
+    formatBytes(file.size);
+
+}
+
+function formatBytes(bytes){
+
+  if(bytes < 1024)
+    return bytes + " B";
+
+  if(bytes < 1024 * 1024)
+    return (
+      bytes / 1024
+    ).toFixed(1) + " KB";
+
+  return (
+    bytes /
+    1024 /
+    1024
+  ).toFixed(2) + " MB";
+}
+
+
+/* DRAG DROP */
+
+[
+  "dragenter",
+  "dragover"
+].forEach(event => {
+
+  dropzone.addEventListener(
+    event,
+    e => {
+
+      e.preventDefault();
+
+      dropzone.classList.add(
+        "drag"
+      );
+
+    }
+  );
+
+});
+
+[
+  "dragleave",
+  "drop"
+].forEach(event => {
+
+  dropzone.addEventListener(
+    event,
+    e => {
+
+      e.preventDefault();
+
+      dropzone.classList.remove(
+        "drag"
+      );
+
+    }
+  );
+
+});
+
+dropzone.addEventListener(
+  "drop",
+  e => {
+
+    const file =
+      e.dataTransfer.files[0];
+
+    if(!file)
+      return;
+
+    const dt =
+      new DataTransfer();
+
+    dt.items.add(file);
+
+    fileInput.files =
+      dt.files;
+
+    showFile(file);
+
+  }
+);
+
+
+/* =========================
+   LOADING BUTTON
+========================= */
+
+function setLoading(
+  button,
+  loading
+){
+
+  button.disabled =
+    loading;
+
+  if(loading){
+
+    button.innerHTML = `
+      <span class="loading">
+        <span class="spinner"></span>
+        DEPLOYING...
+      </span>
+    `;
+
+  }else{
+
+    button.textContent =
+      "DEPLOY WEBSITE";
+
+  }
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function toast(message){
+
+  const box =
+    document.getElementById(
+      "toast"
+    );
+
+  box.textContent =
+    message;
+
+  box.classList.add(
+    "show"
+  );
+
+  clearTimeout(
+    toastTimer
+  );
+
+  toastTimer =
+    setTimeout(
+      () => {
+
+        box.classList.remove(
+          "show"
+        );
+
+      },
+      2500
+    );
+
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(
+  success,
+  title,
+  text,
+  url
+){
+
+  const box =
+    document.getElementById(
+      "result"
+    );
+
+  box.style.display =
+    "block";
+
+  box.classList.toggle(
+    "error",
+    !success
+  );
+
+  if(success){
+
+    box.innerHTML = `
+
+      <div class="resultTitle">
+        ✓ ${escapeHtml(title)}
+      </div>
+
+      <div class="resultText">
+        ${escapeHtml(text)}
+      </div>
+
+      ${
+        url
+        ? `
+          <a
+            class="liveUrl"
+            href="${escapeAttr(url)}"
+            target="_blank"
+            rel="noopener"
+          >
+            ${escapeHtml(url)}
+          </a>
+
+          <a
+            class="openBtn"
+            href="${escapeAttr(url)}"
+            target="_blank"
+            rel="noopener"
+          >
+            BUKA WEBSITE
+          </a>
+        `
+        : ""
+      }
+
+    `;
+
+    toast(
+      "Website berhasil dibuat."
+    );
+
+  }else{
+
+    box.innerHTML = `
+
+      <div class="resultTitle">
+        × ${escapeHtml(title)}
+      </div>
+
+      <div class="resultText">
+        ${escapeHtml(text)}
+      </div>
+
+    `;
+
+    toast(
+      "Deployment gagal."
+    );
+  }
+
+  box.scrollIntoView({
+    behavior:"smooth",
+    block:"nearest"
+  });
+
+}
+
+
+/* =========================
+   DEPLOY FILE
+========================= */
+
+async function deployFile(){
+
+  const file =
+    fileInput.files[0];
+
+  const siteName =
+    document
+      .getElementById(
+        "uploadSiteName"
+      )
+      .value
+      .trim();
+
+  if(!file){
+
+    showResult(
+      false,
+      "File belum dipilih",
+      "Pilih file HTML terlebih dahulu."
+    );
+
+    return;
+  }
+
+  const button =
+    document.getElementById(
+      "uploadDeploy"
+    );
+
+  setLoading(
+    button,
+    true
+  );
+
+  const form =
+    new FormData();
+
+  form.append(
+    "html",
+    file
+  );
+
+  form.append(
+    "siteName",
+    siteName ||
+      "tama-site"
+  );
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/deploy",
+        {
+          method:"POST",
+          body:form
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+
+      throw new Error(
+        data.error ||
+        "Deployment gagal."
+      );
+
+    }
+
+    showResult(
+      true,
+      "WEBSITE BERHASIL DIBUAT",
+      "Website sudah dikirim ke Vercel.",
+      data.url
+    );
+
+  }catch(error){
+
+    showResult(
+      false,
+      "DEPLOYMENT GAGAL",
+      error.message
+    );
+
+  }
+
+  setLoading(
+    button,
+    false
+  );
+
+}
+
+
+/* =========================
+   DEPLOY CODE
+========================= */
+
+async function deployCode(){
+
+  const html =
+    document
+      .getElementById(
+        "htmlCode"
+      )
+      .value;
+
+  const siteName =
+    document
+      .getElementById(
+        "codeSiteName"
+      )
+      .value
+      .trim();
+
+  if(!html.trim()){
+
+    showResult(
+      false,
+      "Kode kosong",
+      "Paste kode HTML terlebih dahulu."
+    );
+
+    return;
+  }
+
+  const button =
+    document.getElementById(
+      "codeDeploy"
+    );
+
+  setLoading(
+    button,
+    true
+  );
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/deploy-code",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            html:html,
+            siteName:
+              siteName ||
+              "tama-site"
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+
+      throw new Error(
+        data.error ||
+        "Deployment gagal."
+      );
+
+    }
+
+    showResult(
+      true,
+      "WEBSITE BERHASIL DIBUAT",
+      "Kode HTML berhasil dideploy.",
+      data.url
+    );
+
+  }catch(error){
+
+    showResult(
+      false,
+      "DEPLOYMENT GAGAL",
+      error.message
+    );
+
+  }
+
+  setLoading(
+    button,
+    false
+  );
+
+}
+
+
+/* =========================
+   BUTTON EVENTS
+========================= */
+
+document
+  .getElementById(
+    "uploadDeploy"
+  )
+  .addEventListener(
+    "click",
+    deployFile
+  );
+
+document
+  .getElementById(
+    "codeDeploy"
+  )
+  .addEventListener(
+    "click",
+    deployCode
+  );
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+function escapeAttr(value){
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    );
+
+}
+
+</script>
+
+</body>
+  </html>
